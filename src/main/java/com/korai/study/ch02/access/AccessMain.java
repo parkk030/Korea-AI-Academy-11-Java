@@ -22,7 +22,7 @@ public class AccessMain
     static class 학생 {
 
         String name;
-        String age;
+        private int age;
     }
 
 
@@ -32,6 +32,7 @@ public class AccessMain
         학생 s1 = new 학생();
         s1.name = "이름0";
         s1.age = 22;
+        System.out.println(s1.age);
 
 
     }
