@@ -27,6 +27,8 @@ public class ClassMain {
 
 
 
+
+
         class Student3<AGE>{
             String name;
             AGE age;

@@ -1,4 +1,4 @@
-package com.korai.study.cho06;
+package com.korai.study.ch06;
 
 public class Method03 {
     public static void main(String[] args) {
@@ -9,30 +9,29 @@ public class Method03 {
 }
 
 class Student{
-    final int code;
+    final int age;
     final String name;
     String address;
 
     Student(){
-        code = 0;
+        age = 0;
         name = null;
         address = null;
     }
 
-    Student(int code ,String name, String address){
-       this.code = code;
+    Student(int age ,String name, String address){
+       this.age = age;
        this.name = name;
        this.address=address;
 
     }
 
-
-
     @Override
     public String toString() {
         return "Student{" +
-                "name='" + name + '\'' +
-                ", age=" + code +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

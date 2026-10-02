@@ -1,4 +1,4 @@
-package com.korai.study.cho06;
+package com.korai.study.ch06;
 
 public class Method01 {
     public static void main(String[] args) {

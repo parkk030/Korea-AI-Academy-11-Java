@@ -1,4 +1,4 @@
-package com.korai.study.cho05.practice;
+package com.korai.study.ch05.practice;
 
 import java.util.Arrays;
 import java.util.Scanner;

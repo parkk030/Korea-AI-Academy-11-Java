@@ -1,4 +1,4 @@
-package com.korai.study.cho05;
+package com.korai.study.ch05;
 
 //조건문 if else switch
 //반복 while for
