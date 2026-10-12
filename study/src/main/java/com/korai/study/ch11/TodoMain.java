@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import java.util.*;
 
 public class TodoMain {
-    public static int pathIndex = 0;
-    public static boolean running = true;
+    public static int pathIndex = 0; //화면넘기
+    public static boolean running = true; //종료용
     public static void main(String[] args) {
-        List<View> viewList = new ArrayList<>();
+        List<View> viewList = new ArrayList<>(); //view 배열추가
         viewList.add(HomeView.getInstance());
         viewList.add(RegisterView.getInstance());
         viewList.add(ListView.getInstance());
@@ -31,6 +31,9 @@ public class TodoMain {
 class Todo {
     private int id;
     private String content;
+    private String name;
+    private int age;
+
 
 }
 
@@ -42,7 +45,6 @@ interface View {
 }
 
 // 싱글톤 - 하나의 유일한객체를 만들고 계속 재사용 -
-
 //class - 생성(메모리에 인스턴스 실존) 가능
 class HomeView implements View {
     //싱글톤 2번 - 해당 클래스 자료형의 인스턴스를 담아두는 static 변수선언한다.
@@ -76,11 +78,11 @@ class HomeView implements View {
         menu = scanner.nextLine().trim(); //trim 좌우공백제거
         menu = String.valueOf(menu.charAt(0)); //string으로 변환 , match,equals 적용시키기위함
         boolean isAlphabet = menu.matches("[a-zA-Z]"); // charat(0) 첫글자가져오기 ,
-        //match 비교 후 true false - 정규표현식 ,
+        //match - 비교 후 true false - 정규표현식 ,
         if(!isAlphabet){
             System.out.println("영문자만 입력 가능 합니다.");
         }
-        menu = menu.toUpperCase();
+        menu = menu.toUpperCase(); // tolowercase
         if("R".equals(menu)){
             TodoMain.pathIndex=1;
         }
@@ -96,11 +98,7 @@ class HomeView implements View {
     }
 }
 
-// 싱글톤 1번 - 생성자를 private로 정의한다.  , 생성자를 숨겨 외부에서 생성을 제한
-//싱글톤 2번 - 해당 클래스 자료형의 인스턴스를 담아두는 static 변수선언한다.
-// 하나만 new, 이름은 instance , private 으로 외부접근제한
-//싱글톤 3번 - static 변수 homeView가 null일 때 인스턴스를 생성 -메모리없을때대비
-// static getter를 통해서만 접근할수있게 유도
+
 
 class RegisterView implements View {
     private static RegisterView instance;
@@ -119,14 +117,33 @@ public static RegisterView getInstance(){
     @Override
     public void show() {
         Scanner scanner = new Scanner(System.in);
-        String content;
+      //  String content;
+
         System.out.println("[ 등록 화면 ]");
         System.out.println("내용을 입력하세요.");
         System.out.println(">>>");
-        content = scanner.nextLine().trim();
-        Todo newTodo = new Todo();
-        newTodo.setContent(content);
+
+      //  content = scanner.nextLine().trim(); //내용
+
+        Todo newTodo = new Todo(); //entity
+        newTodo.setContent(scanner.nextLine().trim());
+        //newTodo.setContent(content); //0,"123"
+
+        System.out.println("[ 등록 화면 ]");
+        System.out.println("이름을 입력하세요.");
+        System.out.println(">>>");
+
+        newTodo.setName(scanner.nextLine().trim());
+
+        System.out.println("[ 등록 화면 ]");
+        System.out.println("나이을 입력하세요.");
+        System.out.println(">>>");
+
+        newTodo.setAge(scanner.nextInt());
+        scanner.nextLine();
+
         TodoRepository.getInstance().insert(newTodo);
+
         System.out.println("TODO 등록 완료.");
         TodoMain.pathIndex=0;
 
@@ -165,6 +182,8 @@ class ListView implements View {
     }
 }
 
+
+
 interface  Repository<T>{
     void insert(T t);
     void update(T t);
@@ -179,6 +198,8 @@ class TodoRepository implements Repository<Todo> {
     private List<Todo> todos;
 
     private TodoRepository() {
+        lastId = 1;
+        todos = new ArrayList<>();
     }
 
     public static TodoRepository getInstance(){
@@ -189,7 +210,8 @@ class TodoRepository implements Repository<Todo> {
     }
 
     @Override
-    public void insert(Todo todo) {
+    public void insert(Todo todo) {  //0,123  , 여기에 그냥 추가를 넣으면
+
         todo.setId(lastId++);
         todos.add(todo);
     }
