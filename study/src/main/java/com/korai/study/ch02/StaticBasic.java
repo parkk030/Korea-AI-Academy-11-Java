@@ -33,6 +33,9 @@ class 학생관리시스템 {
     static int 년도 = LocalDate.now().getYear();
     static int 번호 = 1;
 
+    public 학생관리시스템() {
+    }
+
     static {
         System.out.println("학생관리시스템 클래스 로딩");
     }
